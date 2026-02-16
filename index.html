@@ -1,21 +1,438 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Casa di Franco e Simona - Appartamento Fronte Mare</title>
-    <meta name="description" content="Scopri il nostro elegante appartamento fronte mare. Perfetto per vacanze rilassanti con accesso diretto alla spiaggia, ombrelloni inclusi, Wi-Fi, aria condizionata e tutti i comfort moderni." />
-    <meta property="og:title" content="Casa di Franco e Simona - Appartamento Fronte Mare" />
-    <meta property="og:description" content="Elegante appartamento fronte mare con vista mozzafiato, accesso diretto alla spiaggia e tutti i comfort moderni." />
-    <meta property="og:type" content="website" />
-    <link rel="icon" type="image/png" href="/Sito_CasaMare/favicon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fira+Code:wght@300..700&family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=Oxanium:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/Sito_CasaMare/assets/index-BW7bQv0u.js"></script>
-    <link rel="stylesheet" crossorigin href="/Sito_CasaMare/assets/index-BHbQGX_j.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casa di Franco e Simona - Appartamento Fronte Mare</title>
+  <meta name="description" content="Elegante appartamento fronte mare. Perfetto per vacanze rilassanti con accesso diretto alla spiaggia.">
+  <link rel="icon" type="image/png" href="https://api.dicebear.com/7.x/shapes/svg?seed=beach">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #0ea5e9;
+      --primary-dark: #0284c7;
+      --text: #1e293b;
+      --text-light: #64748b;
+      --bg: #ffffff;
+      --bg-secondary: #f8fafc;
+      --border: #e2e8f0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+      padding: 1rem 0;
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Hero */
+    .hero {
+      height: 90vh;
+      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                  url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920') center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+
+    .hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      animation: fadeInUp 1s ease-out 0.2s backwards;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s;
+      animation: fadeInUp 1s ease-out 0.4s backwards;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+    }
+
+    /* Section */
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    section h2 {
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    section .subtitle {
+      text-align: center;
+      color: var(--text-light);
+      font-size: 1.2rem;
+      margin-bottom: 4rem;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
+      aspect-ratio: 4/3;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      color: white;
+      font-size: 3rem;
+      cursor: pointer;
+      z-index: 10000;
+    }
+
+    /* Services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      text-align: center;
+      padding: 2rem;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .service-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--text);
+      color: white;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .nav-links {
+        gap: 1rem;
+      }
+    }
+
+    /* Back to top */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 999;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <div class="logo">🏖️ Casa Mare</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#gallery">Galleria</a></li>
+        <li><a href="#services">Servizi</a></li>
+        <li><a href="#contact">Contatti</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Benvenuto al Nostro Appartamento</h1>
+      <p>Il nostro elegante appartamento fronte mare</p>
+      <a href="#gallery" class="btn">Scopri di Più</a>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery">
+    <h2>Galleria Fotografica</h2>
+    <p class="subtitle">Scopri i nostri spazi</p>
+    <div class="gallery-grid">
+      <div class="gallery-item" onclick="openLightbox(0)">
+        <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600" alt="Esterno" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(1)">
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600" alt="Soggiorno" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(2)">
+        <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600" alt="Camera" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(3)">
+        <img src="https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=600" alt="Cucina" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(4)">
+        <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600" alt="Bagno" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(5)">
+        <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=600" alt="Vista" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" style="background: var(--bg-secondary);">
+    <h2>I Nostri Servizi</h2>
+    <p class="subtitle">Comfort e relax per la tua vacanza</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🏖️</div>
+        <h3>Accesso Spiaggia</h3>
+        <p>Ombrellone e lettini inclusi</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📶</div>
+        <h3>Wi-Fi Gratuito</h3>
+        <p>Connessione veloce fibra</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">❄️</div>
+        <h3>Aria Condizionata</h3>
+        <p>In tutte le stanze</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🅿️</div>
+        <h3>Parcheggio</h3>
+        <p>Posto auto riservato</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contattaci</h2>
+    <p class="subtitle">Siamo a tua disposizione</p>
+    <div style="text-align: center;">
+      <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+        📧 Email: <a href="mailto:info@casamare.it" style="color: var(--primary);">info@casamare.it</a>
+      </p>
+      <p style="font-size: 1.2rem;">
+        📞 Telefono: <a href="tel:+393331234567" style="color: var(--primary);">+39 333 123 4567</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Casa di Franco e Simona. Tutti i diritti riservati.</p>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <!-- Back to Top -->
+  <div class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</div>
+
+  <script>
+    // Lightbox
+    const images = [
+      'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1920',
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1920',
+      'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1920',
+      'https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=1920',
+      'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1920',
+      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=1920'
+    ];
+
+    function openLightbox(index) {
+      document.getElementById('lightbox').classList.add('active');
+      document.getElementById('lightbox-img').src = images[index];
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Back to top
+    window.addEventListener('scroll', () => {
+      const backToTop = document.getElementById('backToTop');
+      if (window.scrollY > 300) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
 </html>
