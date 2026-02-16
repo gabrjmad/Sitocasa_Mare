@@ -12,7 +12,7 @@ export default defineConfig({
     },
   },
   root: path.resolve(import.meta.dirname, "client"),
-  base: '/Sitocasa_Mare/',  // ⚠️ CAMBIA 'casa-affitto' con il nome del tuo repo GitHub
+  base: '/SitoCasa_Mare/',  // ⚠️ CAMBIA 'casa-affitto' con il nome del tuo repo GitHub
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
