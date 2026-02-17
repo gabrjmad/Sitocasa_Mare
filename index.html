@@ -58,7 +58,7 @@
       width: 100%;
       height: 100%;
       height: 100vh;
-      height: 100svh; /* Small viewport height per mobile */
+      height: 100svh;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -380,7 +380,7 @@
       padding: 3rem 2rem;
     }
 
-    /* Responsive */
+    /* Responsive MOBILE */
     @media (max-width: 768px) {
       .hero {
         height: 100vh;
@@ -392,8 +392,13 @@
         height: 100svh;
       }
       
+      /* ZOOM MAGGIORE su mobile per coprire tutto */
       .hero__img {
-        transform: scale(1.15);
+        transform: scale(1.5);
+        min-width: 150%;
+        min-height: 150%;
+        width: auto;
+        height: auto;
       }
       
       .hero__title { 
@@ -628,8 +633,8 @@
 
       // BAGNO
       { src: "assets/bagno1.jpeg", caption: "Bagno moderno" },
-      { src: "assets/bagno2.jpeg", caption: "Bagno doccia" },
-      { src: "assets/bagno3.jpeg", caption: "Bagno sanitari" },
+      { src: "assets/bagno2.jpeg", caption: "Bagno sanitari" },
+      { src: "assets/bagno3.jpeg", caption: "Bagno doccia" },
 
       // KIT
       { src: "assets/kit_benvenuto.jpeg", caption: "Kit di benvenuto" },
@@ -695,8 +700,13 @@
       if (scrolled <= windowHeight) {
         const opacity = Math.max(0, 1 - scrolled / (windowHeight * 0.8));
         hero.style.opacity = opacity;
-        const currentScale = 1.1 + scrolled * 0.0002;
+        
+        // Scale diverso per mobile e desktop
+        const isMobile = window.innerWidth <= 768;
+        const baseScale = isMobile ? 1.5 : 1.1;
+        const currentScale = baseScale + scrolled * 0.0002;
         heroImg.style.transform = `scale(${currentScale})`;
+        
         heroTitle.style.transform = `translateY(${scrolled * 0.5}px)`;
         heroTitle.style.opacity = opacity;
       }
