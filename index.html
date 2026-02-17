@@ -14,11 +14,20 @@
       box-sizing: border-box;
     }
 
-    html, body {
+    html {
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    body {
       margin: 0;
       padding: 0;
       width: 100%;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      line-height: 1.6;
       overflow-x: hidden;
+      position: relative;
     }
 
     :root {
@@ -31,12 +40,6 @@
       --border: #e2e8f0;
     }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      color: var(--text);
-      line-height: 1.6;
-    }
-
     h1, h2, h3 {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
@@ -45,7 +48,7 @@
     /* HERO CON EFFETTO PARALLAX E FADE - FULL SCREEN TOTALE */
     .hero {
       height: 100vh;
-      width: 100%;
+      width: 100vw;
       position: relative;
       overflow: hidden;
       display: flex;
@@ -132,85 +135,52 @@
       line-height: 1.8;
     }
 
-    /* CAROUSEL */
-    .carousel {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+    /* GALLERY GRID - 2 FOTO AFFIANCATE */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
       max-width: 1000px;
       margin: 0 auto;
-      user-select: none;
     }
 
-    .carousel__viewport {
-      flex: 1;
+    .gallery-item {
+      position: relative;
       overflow: hidden;
       border-radius: 16px;
-      background: var(--bg-secondary);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
       cursor: pointer;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
-    .carousel__img {
+    .gallery-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 70px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item__img {
       width: 100%;
-      height: 70vh;
-      max-height: 600px;
+      height: 400px;
       object-fit: cover;
       display: block;
       transition: transform 0.3s;
     }
 
-    .carousel__img:hover {
+    .gallery-item:hover .gallery-item__img {
       transform: scale(1.05);
     }
 
-    .carousel__btn {
-      width: 56px;
-      height: 56px;
-      border: 0;
-      border-radius: 50%;
-      background: var(--primary);
+    .gallery-item__caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
       color: white;
-      font-size: 1.8rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 8px 25px rgba(14,165,233,0.3);
-    }
-
-    .carousel__btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 12px 35px rgba(14,165,233,0.4);
-    }
-
-    .carousel__dots {
-      display: flex;
-      gap: 0.8rem;
-      padding-top: 2rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .carousel__dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      border: 0;
-      background: var(--text-light);
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .carousel__dot.is-active {
-      background: var(--primary);
-      transform: scale(1.2);
-    }
-
-    .carousel__caption {
-      margin-top: 1.5rem;
-      text-align: center;
       font-weight: 500;
-      color: var(--text);
       font-size: 1.2rem;
+      text-align: center;
     }
 
     /* LIGHTBOX */
@@ -233,31 +203,45 @@
 
     .lightbox__content {
       position: relative;
-      max-width: 95vw;
-      max-height: 95vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
     }
 
     .lightbox__img {
-      max-width: 90vw;
-      max-height: 90vh;
+      max-width: 70vw;
+      max-height: 80vh;
       object-fit: contain;
       display: block;
     }
 
     .lightbox__close {
-      position: absolute;
-      top: -3rem;
-      right: 0;
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
       color: white;
       font-size: 3rem;
       cursor: pointer;
-      z-index: 10000;
-      background: none;
+      z-index: 10001;
+      background: rgba(0,0,0,0.5);
       border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+
+    .lightbox__close:hover {
+      background: rgba(0,0,0,0.8);
     }
 
     .lightbox__nav {
-      position: absolute;
+      position: fixed;
       top: 50%;
       transform: translateY(-50%);
       width: 60px;
@@ -269,6 +253,10 @@
       font-size: 2rem;
       cursor: pointer;
       transition: background 0.3s;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .lightbox__nav:hover {
@@ -276,11 +264,24 @@
     }
 
     .lightbox__nav--prev {
-      left: 2rem;
+      left: 3rem;
     }
 
     .lightbox__nav--next {
-      right: 2rem;
+      right: 3rem;
+    }
+
+    .lightbox__caption {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 1.2rem;
+      background: rgba(0,0,0,0.6);
+      padding: 0.8rem 2rem;
+      border-radius: 25px;
+      z-index: 10000;
     }
 
     /* Services */
@@ -355,11 +356,12 @@
     /* Responsive */
     @media (max-width: 768px) {
       .hero__title { font-size: 2.2rem; padding: 1.5rem 2rem; letter-spacing: 2px; }
-      .carousel__img { height: 60vh; }
+      .gallery-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .gallery-item__img { height: 300px; }
       .map__img { height: 50vh; }
-      .carousel { flex-direction: column; gap: 2rem; }
       .services-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-      .lightbox__nav { width: 50px; height: 50px; }
+      .lightbox__img { max-width: 90vw; max-height: 70vh; }
+      .lightbox__nav { width: 50px; height: 50px; font-size: 1.5rem; }
       .lightbox__nav--prev { left: 1rem; }
       .lightbox__nav--next { right: 1rem; }
     }
@@ -407,23 +409,21 @@
     </div>
   </section>
 
-  <!-- CAROUSEL GALLERY (ordine: sala, cucina, terrazzo, bagno, kit) -->
+  <!-- GALLERY: 2 FOTO AFFIANCATE -->
   <section id="gallery">
     <h2>Foto</h2>
-    <p class="subtitle">Scopri ogni dettaglio</p>
+    <p class="subtitle">Scopri ogni dettaglio della casa</p>
 
-    <div class="carousel">
-      <button class="carousel__btn" type="button" data-dir="-1" aria-label="Foto precedente">‹</button>
-
-      <div class="carousel__viewport" onclick="openLightbox()">
-        <img id="carouselImage" class="carousel__img" src="assets/foto_sala.jpg" alt="Sala" loading="lazy">
+    <div class="gallery-grid">
+      <div class="gallery-item" onclick="openLightbox(0)">
+        <img class="gallery-item__img" src="assets/foto_sala.jpg" alt="Sala" loading="lazy">
+        <div class="gallery-item__caption">Sala</div>
       </div>
-
-      <button class="carousel__btn" type="button" data-dir="1" aria-label="Foto successiva">›</button>
+      <div class="gallery-item" onclick="openLightbox(9)">
+        <img class="gallery-item__img" src="assets/foto_terrazzo.jpeg" alt="Terrazzo" loading="lazy">
+        <div class="gallery-item__caption">Terrazzo</div>
+      </div>
     </div>
-
-    <div class="carousel__dots" id="carouselDots" aria-label="Navigazione foto"></div>
-    <p class="carousel__caption" id="carouselCaption">Sala luminosa</p>
   </section>
 
   <!-- SERVIZI AGGIORNATI -->
@@ -517,10 +517,11 @@
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" onclick="closeLightboxOnBackground(event)">
     <div class="lightbox__content">
-      <button class="lightbox__close" onclick="closeLightbox()">×</button>
+      <button class="lightbox__close" onclick="closeLightbox(); event.stopPropagation();">×</button>
       <button class="lightbox__nav lightbox__nav--prev" onclick="lightboxNavigate(-1); event.stopPropagation();">‹</button>
       <img id="lightboxImage" class="lightbox__img" src="" alt="">
       <button class="lightbox__nav lightbox__nav--next" onclick="lightboxNavigate(1); event.stopPropagation();">›</button>
+      <div class="lightbox__caption" id="lightboxCaption"></div>
     </div>
   </div>
 
@@ -528,7 +529,7 @@
   <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
   <script>
-    // CAROUSEL - foto ordinate: SALA → CUCINA → TERRAZZO → BAGNO → KIT
+    // TUTTE LE FOTO ORDINATE: SALA → CUCINA → TERRAZZO → BAGNO → KIT
     const slides = [
       // SALA
       { src: "assets/foto_sala.jpg", caption: "Sala luminosa" },
@@ -561,50 +562,15 @@
 
     let currentSlide = 0;
 
-    const carouselImg = document.getElementById('carouselImage');
-    const carouselCaption = document.getElementById('carouselCaption');
-    const carouselDots = document.getElementById('carouselDots');
-
-    function updateCarousel() {
-      carouselImg.src = slides[currentSlide].src;
-      carouselImg.alt = slides[currentSlide].caption;
-      carouselCaption.textContent = slides[currentSlide].caption;
-      
-      // Dots
-      carouselDots.innerHTML = '';
-      slides.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.className = `carousel__dot ${i === currentSlide ? 'is-active' : ''}`;
-        dot.type = 'button';
-        dot.ariaLabel = `Vai a ${slides[i].caption}`;
-        dot.onclick = () => goToSlide(i);
-        carouselDots.appendChild(dot);
-      });
-    }
-
-    function goToSlide(index) {
-      currentSlide = (index + slides.length) % slides.length;
-      updateCarousel();
-    }
-
-    document.querySelectorAll('.carousel__btn').forEach(btn => {
-      btn.onclick = () => {
-        const dir = parseInt(btn.dataset.dir);
-        goToSlide(currentSlide + dir);
-      };
-    });
-
-    // Init carousel
-    updateCarousel();
-
     // LIGHTBOX
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImage');
+    const lightboxCaption = document.getElementById('lightboxCaption');
 
-    function openLightbox() {
+    function openLightbox(index) {
+      currentSlide = index;
       lightbox.classList.add('active');
-      lightboxImg.src = slides[currentSlide].src;
-      lightboxImg.alt = slides[currentSlide].caption;
+      updateLightbox();
       document.body.style.overflow = 'hidden';
     }
 
@@ -619,11 +585,15 @@
       }
     }
 
-    function lightboxNavigate(dir) {
-      currentSlide = (currentSlide + dir + slides.length) % slides.length;
+    function updateLightbox() {
       lightboxImg.src = slides[currentSlide].src;
       lightboxImg.alt = slides[currentSlide].caption;
-      updateCarousel();
+      lightboxCaption.textContent = slides[currentSlide].caption;
+    }
+
+    function lightboxNavigate(dir) {
+      currentSlide = (currentSlide + dir + slides.length) % slides.length;
+      updateLightbox();
     }
 
     // Tasti freccia lightbox
@@ -659,16 +629,6 @@
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    // Touch swipe carousel (mobile)
-    let startX = 0;
-    const viewport = document.querySelector('.carousel__viewport');
-    viewport.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-    viewport.addEventListener('touchend', e => {
-      const endX = e.changedTouches[0].clientX;
-      if (startX - endX > 50) goToSlide(currentSlide + 1);
-      if (endX - startX > 50) goToSlide(currentSlide - 1);
-    });
   </script>
 </body>
 </html>
