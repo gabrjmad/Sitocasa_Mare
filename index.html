@@ -79,46 +79,33 @@
       color: var(--primary);
     }
 
-    /* Hero */
+    /* HERO NUOVO: foto full screen */
     .hero {
-      height: 90vh;
-      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                  url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920') center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: white;
+      height: 100vh;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
     }
 
-    .hero-content h1 {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-      animation: fadeInUp 1s ease-out;
+    .hero__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
-    .hero-content p {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-      animation: fadeInUp 1s ease-out 0.2s backwards;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 1rem 2.5rem;
-      background: var(--primary);
-      color: white;
-      text-decoration: none;
+    .hero__hint {
+      position: absolute;
+      left: 50%;
+      bottom: 2rem;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.6);
+      color: #fff;
+      padding: 1rem 2rem;
       border-radius: 50px;
-      font-weight: 600;
-      transition: all 0.3s;
-      animation: fadeInUp 1s ease-out 0.4s backwards;
-    }
-
-    .btn:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+      font-weight: 500;
+      text-align: center;
+      backdrop-filter: blur(10px);
     }
 
     /* Section */
@@ -142,64 +129,88 @@
       margin-bottom: 4rem;
     }
 
-    /* Gallery */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
+    /* DESCRIZIONE BREVE */
+    .description {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      font-size: 1.1rem;
+      line-height: 1.8;
     }
 
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      cursor: pointer;
-      aspect-ratio: 4/3;
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.1);
-    }
-
-    /* Lightbox */
-    .lightbox {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.95);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .lightbox.active {
+    /* CAROUSEL */
+    .carousel {
       display: flex;
+      align-items: center;
+      gap: 1rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      user-select: none;
     }
 
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90vh;
-      object-fit: contain;
+    .carousel__viewport {
+      flex: 1;
+      overflow: hidden;
+      border-radius: 16px;
+      background: var(--bg-secondary);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
     }
 
-    .lightbox-close {
-      position: absolute;
-      top: 2rem;
-      right: 2rem;
+    .carousel__img {
+      width: 100%;
+      height: 70vh;
+      max-height: 600px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .carousel__btn {
+      width: 56px;
+      height: 56px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--primary);
       color: white;
-      font-size: 3rem;
+      font-size: 1.8rem;
       cursor: pointer;
-      z-index: 10000;
+      transition: all 0.3s;
+      box-shadow: 0 8px 25px rgba(14,165,233,0.3);
+    }
+
+    .carousel__btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 35px rgba(14,165,233,0.4);
+    }
+
+    .carousel__dots {
+      display: flex;
+      gap: 0.8rem;
+      padding-top: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .carousel__dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 0;
+      background: var(--text-light);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .carousel__dot.is-active {
+      background: var(--primary);
+      transform: scale(1.2);
+    }
+
+    .carousel__caption {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-weight: 500;
+      color: var(--text);
+      font-size: 1.2rem;
     }
 
     /* Services */
@@ -211,20 +222,56 @@
 
     .service-card {
       text-align: center;
-      padding: 2rem;
+      padding: 2.5rem;
       background: var(--bg-secondary);
-      border-radius: 12px;
-      transition: transform 0.3s;
+      border-radius: 16px;
+      transition: all 0.3s;
     }
 
     .service-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     }
 
     .service-icon {
-      font-size: 3rem;
+      font-size: 3.5rem;
       margin-bottom: 1rem;
+    }
+
+    /* MAPPA */
+    .map-container {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      max-width: 1000px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+
+    .map__img {
+      width: 100%;
+      height: 70vh;
+      max-height: 500px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .map__pin {
+      position: absolute;
+      left: 58%; /* REGOLA QUI per Martinsicuro */
+      top: 52%;  /* REGOLA QUI per Martinsicuro */
+      width: 20px;
+      height: 20px;
+      background: #ef4444;
+      border-radius: 50%;
+      box-shadow: 0 0 0 6px rgba(239,68,68,0.3);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
     }
 
     /* Footer */
@@ -249,13 +296,11 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-      .hero-content h1 {
-        font-size: 2.5rem;
-      }
-      
-      .nav-links {
-        gap: 1rem;
-      }
+      .carousel__img { height: 60vh; }
+      .map__img { height: 50vh; }
+      .carousel { flex-direction: column; gap: 2rem; }
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; font-size: 0.9rem; }
     }
 
     /* Back to top */
@@ -290,53 +335,76 @@
       <div class="logo">🏖️ Casa Mare</div>
       <ul class="nav-links">
         <li><a href="#home">Home</a></li>
-        <li><a href="#gallery">Galleria</a></li>
+        <li><a href="#descrizione">Descrizione</a></li>
+        <li><a href="#gallery">Foto</a></li>
         <li><a href="#services">Servizi</a></li>
+        <li><a href="#mappa">Dove Siamo</a></li>
         <li><a href="#contact">Contatti</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero -->
+  <!-- HERO: PRIMA FOTO FULL SCREEN -->
   <section class="hero" id="home">
-    <div class="hero-content">
-      <h1>Benvenuto al Nostro Appartamento</h1>
-      <p>Il nostro elegante appartamento fronte mare</p>
-      <a href="#gallery" class="btn">Scopri di Più</a>
+    <img class="hero__img" src="assets/img/1foto_sfondo.jpeg" alt="Foto principale appartamento fronte mare" loading="eager">
+    <div class="hero__hint">
+      Scopri la casa<br>
+      <small>scorri ↓</small>
     </div>
   </section>
 
-  <!-- Gallery -->
+  <!-- DESCRIZIONE BREVE -->
+  <section id="descrizione">
+    <div class="description">
+      <h2>La Nostra Casa</h2>
+      <p>Elegante appartamento fronte mare a Martinsicuro, perfetto per vacanze rilassanti. Ampia sala con Smart TV, cucina attrezzata, terrazzo vista mare, bagno moderno e camera matrimoniale confortevole. Kit di benvenuto incluso. Accesso diretto alla spiaggia!</p>
+    </div>
+  </section>
+
+  <!-- CAROUSEL GALLERY (ordine: sala, cucina, terrazzo, bagno, kit) -->
   <section id="gallery">
-    <h2>Galleria Fotografica</h2>
-    <p class="subtitle">Scopri i nostri spazi</p>
-    <div class="gallery-grid">
-      <div class="gallery-item" onclick="openLightbox(0)">
-        <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600" alt="Esterno" loading="lazy">
+    <h2>Foto</h2>
+    <p class="subtitle">Scopri ogni dettaglio</p>
+
+    <div class="carousel">
+      <button class="carousel__btn" type="button" data-dir="-1" aria-label="Foto precedente">‹</button>
+
+      <div class="carousel__viewport">
+        <img id="carouselImage" class="carousel__img" src="assets/img/foto_sala.jpg" alt="Sala" loading="lazy">
       </div>
-      <div class="gallery-item" onclick="openLightbox(1)">
-        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600" alt="Soggiorno" loading="lazy">
-      </div>
-      <div class="gallery-item" onclick="openLightbox(2)">
-        <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600" alt="Camera" loading="lazy">
-      </div>
-      <div class="gallery-item" onclick="openLightbox(3)">
-        <img src="https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=600" alt="Cucina" loading="lazy">
-      </div>
-      <div class="gallery-item" onclick="openLightbox(4)">
-        <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600" alt="Bagno" loading="lazy">
-      </div>
-      <div class="gallery-item" onclick="openLightbox(5)">
-        <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=600" alt="Vista" loading="lazy">
-      </div>
+
+      <button class="carousel__btn" type="button" data-dir="1" aria-label="Foto successiva">›</button>
     </div>
+
+    <div class="carousel__dots" id="carouselDots" aria-label="Navigazione foto"></div>
+    <p class="carousel__caption" id="carouselCaption">Sala luminosa</p>
   </section>
 
-  <!-- Services -->
+  <!-- SERVIZI AGGIORNATI -->
   <section id="services" style="background: var(--bg-secondary);">
     <h2>I Nostri Servizi</h2>
-    <p class="subtitle">Comfort e relax per la tua vacanza</p>
+    <p class="subtitle">Tutto incluso per il tuo comfort</p>
     <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">❄️</div>
+        <h3>Aria Condizionata</h3>
+        <p>In tutte le stanze</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💨</div>
+        <h3>Ventilatore</h3>
+        <p>Disponibile su richiesta</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📺</div>
+        <h3>Smart TV</h3>
+        <p>Netflix & tutte le app</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🚲</div>
+        <h3>Biciclette</h3>
+        <p>Disponibili gratuitamente</p>
+      </div>
       <div class="service-card">
         <div class="service-icon">🏖️</div>
         <h3>Accesso Spiaggia</h3>
@@ -344,26 +412,27 @@
       </div>
       <div class="service-card">
         <div class="service-icon">📶</div>
-        <h3>Wi-Fi Gratuito</h3>
-        <p>Connessione veloce fibra</p>
+        <h3>Wi-Fi Fibra</h3>
+        <p>Connessione super veloce</p>
       </div>
-      <div class="service-card">
-        <div class="service-icon">❄️</div>
-        <h3>Aria Condizionata</h3>
-        <p>In tutte le stanze</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🅿️</div>
-        <h3>Parcheggio</h3>
-        <p>Posto auto riservato</p>
-      </div>
+    </div>
+  </section>
+
+  <!-- MAPPA CON PUNTO ROSSO -->
+  <section id="mappa">
+    <h2>Dove Siamo</h2>
+    <p class="subtitle">Martinsicuro (TE) - fronte mare</p>
+
+    <div class="map-container">
+      <img class="map__img" src="assets/img/immagine_posizione.png" alt="Mappa posizione Martinsicuro" loading="lazy">
+      <div class="map__pin" aria-label="La nostra posizione" title="Qui siamo noi!"></div>
     </div>
   </section>
 
   <!-- Contact -->
   <section id="contact">
     <h2>Contattaci</h2>
-    <p class="subtitle">Siamo a tua disposizione</p>
+    <p class="subtitle">Prenota la tua vacanza</p>
     <div style="text-align: center;">
       <p style="font-size: 1.2rem; margin-bottom: 1rem;">
         📧 Email: <a href="mailto:info@casamare.it" style="color: var(--primary);">info@casamare.it</a>
@@ -379,52 +448,90 @@
     <p>&copy; 2026 Casa di Franco e Simona. Tutti i diritti riservati.</p>
   </footer>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <span class="lightbox-close">&times;</span>
-    <img id="lightbox-img" src="" alt="">
-  </div>
-
   <!-- Back to Top -->
   <div class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</div>
 
   <script>
-    // Lightbox
-    const images = [
-      'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1920',
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1920',
-      'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1920',
-      'https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=1920',
-      'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1920',
-      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=1920'
+    // CAROUSEL - foto ordinate: SALA → CUCINA → TERRAZZO → BAGNO → KIT
+    const slides = [
+      // SALA
+      { src: "assets/img/foto_sala.jpg", caption: "Sala luminosa" },
+      { src: "assets/img/foto_sala_tv.jpeg", caption: "Sala con Smart TV" },
+      { src: "assets/img/foto_tavolo_e_sala.jpeg", caption: "Zona pranzo sala" },
+      { src: "assets/img/appendipanni.jpeg", caption: "Ingresso appendipanni" },
+
+      // CUCINA
+      { src: "assets/img/cucina.jpeg", caption: "Cucina attrezzata" },
+      { src: "assets/img/cucina2.jpeg", caption: "Cucina dettaglio" },
+      { src: "assets/img/cucina3.jpeg", caption: "Cucina piano lavoro" },
+      { src: "assets/img/foto_tavolo_cucina.jpeg", caption: "Tavolo cucina" },
+
+      // TERRAZZO
+      { src: "assets/img/foto_terrazzo.jpeg", caption: "Terrazzo vista mare" },
+      { src: "assets/img/foto_vista_terrazzo.jpeg", caption: "Vista dal terrazzo" },
+
+      // BAGNO
+      { src: "assets/img/bagno1.jpeg", caption: "Bagno moderno" },
+      { src: "assets/img/bagno2.jpeg", caption: "Bagno doccia" },
+      { src: "assets/img/bagno3.jpeg", caption: "Bagno sanitari" },
+
+      // KIT
+      { src: "assets/img/kit_benvenuto.jpeg", caption: "Kit di benvenuto" },
+
+      // EXTRA
+      { src: "assets/img/camera matrimoniale.jpeg", caption: "Camera matrimoniale" },
+      { src: "assets/img/foto_ingresso.jpeg", caption: "Ingresso generale" }
     ];
 
-    function openLightbox(index) {
-      document.getElementById('lightbox').classList.add('active');
-      document.getElementById('lightbox-img').src = images[index];
-      document.body.style.overflow = 'hidden';
+    let currentSlide = 0;
+
+    const carouselImg = document.getElementById('carouselImage');
+    const carouselCaption = document.getElementById('carouselCaption');
+    const carouselDots = document.getElementById('carouselDots');
+
+    function updateCarousel() {
+      carouselImg.src = slides[currentSlide].src;
+      carouselImg.alt = slides[currentSlide].caption;
+      carouselCaption.textContent = slides[currentSlide].caption;
+      
+      // Dots
+      carouselDots.innerHTML = '';
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = `carousel__dot ${i === currentSlide ? 'is-active' : ''}`;
+        dot.type = 'button';
+        dot.ariaLabel = `Vai a ${slides[i].caption}`;
+        dot.onclick = () => goToSlide(i);
+        carouselDots.appendChild(dot);
+      });
     }
 
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('active');
-      document.body.style.overflow = 'auto';
+    function goToSlide(index) {
+      currentSlide = (index + slides.length) % slides.length;
+      updateCarousel();
     }
+
+    document.querySelectorAll('.carousel__btn').forEach(btn => {
+      btn.onclick = () => {
+        const dir = parseInt(btn.dataset.dir);
+        goToSlide(currentSlide + dir);
+      };
+    });
+
+    // Init carousel
+    updateCarousel();
 
     // Back to top
     window.addEventListener('scroll', () => {
       const backToTop = document.getElementById('backToTop');
-      if (window.scrollY > 300) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
+      backToTop.classList.toggle('visible', window.scrollY > 300);
     });
 
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Smooth scroll
+    // Smooth scroll nav
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -432,6 +539,16 @@
           behavior: 'smooth'
         });
       });
+    });
+
+    // Touch swipe carousel (mobile)
+    let startX = 0;
+    const viewport = document.querySelector('.carousel__viewport');
+    viewport.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+    viewport.addEventListener('touchend', e => {
+      const endX = e.changedTouches[0].clientX;
+      if (startX - endX > 50) goToSlide(currentSlide + 1);
+      if (endX - startX > 50) goToSlide(currentSlide - 1);
     });
   </script>
 </body>
