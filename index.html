@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Casa di Franco e Simona - Appartamento Fronte Mare</title>
   <meta name="description" content="Elegante appartamento fronte mare. Perfetto per vacanze rilassanti con accesso diretto alla spiaggia.">
   <link rel="icon" type="image/png" href="https://api.dicebear.com/7.x/shapes/svg?seed=beach">
@@ -12,23 +12,26 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html {
-      overflow-x: hidden;
       width: 100%;
       height: 100%;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      min-height: 100vh;
+      width: 100%;
+      min-height: 100%;
       font-family: 'Poppins', sans-serif;
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
+      margin: 0;
+      padding: 0;
       position: relative;
     }
 
@@ -47,32 +50,35 @@
       font-weight: 700;
     }
 
-    /* HERO CON EFFETTO PARALLAX E FADE - FULL SCREEN TOTALE */
+    /* HERO - FOTO FULL SCREEN ASSOLUTO */
     .hero {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       height: 100vh;
-      width: 100vw;
-      position: relative;
+      height: 100svh; /* Small viewport height per mobile */
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0;
       padding: 0;
-      left: 0;
-      top: 0;
+      z-index: 0;
     }
 
     .hero__img {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(1.15);
-      min-width: 100%;
-      min-height: 100%;
-      width: 100vw;
-      height: 100vh;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       object-position: center;
+      transform: scale(1.1);
       transition: transform 0.5s ease-out;
     }
 
@@ -109,6 +115,21 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    /* SPACER per far scorrere il contenuto sopra l'hero */
+    .hero-spacer {
+      height: 100vh;
+      height: 100svh;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Content wrapper */
+    .content-wrapper {
+      position: relative;
+      z-index: 10;
+      background: var(--bg);
     }
 
     /* Section */
@@ -363,11 +384,16 @@
     @media (max-width: 768px) {
       .hero {
         height: 100vh;
-        height: 100dvh; /* Dynamic viewport height per mobile */
+        height: 100svh;
+      }
+      
+      .hero-spacer {
+        height: 100vh;
+        height: 100svh;
       }
       
       .hero__img {
-        transform: translate(-50%, -50%) scale(1.2);
+        transform: scale(1.15);
       }
       
       .hero__title { 
@@ -441,125 +467,131 @@
 </head>
 <body>
 
-  <!-- HERO: FOTO FULL SCREEN CON TITOLO CENTRALE -->
-  <section class="hero" id="home">
+  <!-- HERO: FOTO FULL SCREEN FIXED -->
+  <div class="hero" id="hero">
     <img class="hero__img" src="assets/1foto_sfondo.jpeg" alt="Casa di Franco e Simona" loading="eager">
     <div class="hero__overlay"></div>
     <h1 class="hero__title">La Casa di Franco e Simona</h1>
-  </section>
+  </div>
 
-  <!-- DESCRIZIONE BREVE -->
-  <section id="descrizione">
-    <div class="description">
-      <h2>La Nostra Casa</h2>
-      <p>Elegante appartamento fronte mare a Martinsicuro, perfetto per vacanze rilassanti. Ampia sala con Smart TV, cucina attrezzata, terrazzo vista mare, bagno moderno e camera matrimoniale confortevole. Kit di benvenuto incluso. Accesso diretto alla spiaggia!</p>
-    </div>
-  </section>
+  <!-- SPACER per permettere lo scroll -->
+  <div class="hero-spacer"></div>
 
-  <!-- GALLERY: 2 FOTO AFFIANCATE -->
-  <section id="gallery">
-    <h2>Foto</h2>
-    <p class="subtitle">Scopri ogni dettaglio della casa</p>
+  <!-- CONTENT WRAPPER -->
+  <div class="content-wrapper">
+    <!-- DESCRIZIONE BREVE -->
+    <section id="descrizione">
+      <div class="description">
+        <h2>La Nostra Casa</h2>
+        <p>Elegante appartamento fronte mare a Martinsicuro, perfetto per vacanze rilassanti. Ampia sala con Smart TV, cucina attrezzata, terrazzo vista mare, bagno moderno e camera matrimoniale confortevole. Kit di benvenuto incluso. Accesso diretto alla spiaggia!</p>
+      </div>
+    </section>
 
-    <div class="gallery-grid">
-      <div class="gallery-item" onclick="openLightbox(0)">
-        <img class="gallery-item__img" src="assets/foto_sala.jpg" alt="Sala" loading="lazy">
-        <div class="gallery-item__caption">Sala</div>
-      </div>
-      <div class="gallery-item" onclick="openLightbox(8)">
-        <img class="gallery-item__img" src="assets/foto_terrazzo.jpeg" alt="Terrazzo" loading="lazy">
-        <div class="gallery-item__caption">Terrazzo</div>
-      </div>
-    </div>
-  </section>
+    <!-- GALLERY: 2 FOTO AFFIANCATE -->
+    <section id="gallery">
+      <h2>Foto</h2>
+      <p class="subtitle">Scopri ogni dettaglio della casa</p>
 
-  <!-- SERVIZI AGGIORNATI -->
-  <section id="services" style="background: var(--bg-secondary);">
-    <h2>I Nostri Servizi</h2>
-    <p class="subtitle">Tutto incluso per il tuo comfort</p>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">❄️</div>
-        <h3>Aria Condizionata</h3>
-        <p>In tutte le stanze</p>
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox(0)">
+          <img class="gallery-item__img" src="assets/foto_sala.jpg" alt="Sala" loading="lazy">
+          <div class="gallery-item__caption">Sala</div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(8)">
+          <img class="gallery-item__img" src="assets/foto_terrazzo.jpeg" alt="Terrazzo" loading="lazy">
+          <div class="gallery-item__caption">Terrazzo</div>
+        </div>
       </div>
-      <div class="service-card">
-        <div class="service-icon">💨</div>
-        <h3>Ventilatore</h3>
-        <p>Disponibile su richiesta</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📺</div>
-        <h3>Smart TV</h3>
-        <p>Netflix & tutte le app</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🚲</div>
-        <h3>Biciclette</h3>
-        <p>Disponibili gratuitamente</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🚗</div>
-        <h3>Piccolo Garage</h3>
-        <p>Posto auto coperto</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">☕</div>
-        <h3>Macchina Caffè</h3>
-        <p>Espresso e cappuccino</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🍽️</div>
-        <h3>Microonde</h3>
-        <p>Cucina completamente attrezzata</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🏖️</div>
-        <h3>Asciugamani Mare</h3>
-        <p>Forniti per la spiaggia</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🏖️</div>
-        <h3>Accesso Spiaggia</h3>
-        <p>Ombrellone e lettini inclusi</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📶</div>
-        <h3>Wi-Fi Fibra</h3>
-        <p>Connessione super veloce</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- MAPPA CON PUNTO ROSSO -->
-  <section id="mappa">
-    <h2>Dove Siamo</h2>
-    <p class="subtitle">Martinsicuro (TE) - fronte mare</p>
+    <!-- SERVIZI AGGIORNATI -->
+    <section id="services" style="background: var(--bg-secondary);">
+      <h2>I Nostri Servizi</h2>
+      <p class="subtitle">Tutto incluso per il tuo comfort</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">❄️</div>
+          <h3>Aria Condizionata</h3>
+          <p>In tutte le stanze</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">💨</div>
+          <h3>Ventilatore</h3>
+          <p>Disponibile su richiesta</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📺</div>
+          <h3>Smart TV</h3>
+          <p>Netflix & tutte le app</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🚲</div>
+          <h3>Biciclette</h3>
+          <p>Disponibili gratuitamente</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🚗</div>
+          <h3>Piccolo Garage</h3>
+          <p>Posto auto coperto</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">☕</div>
+          <h3>Macchina Caffè</h3>
+          <p>Espresso e cappuccino</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🍽️</div>
+          <h3>Microonde</h3>
+          <p>Cucina completamente attrezzata</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏖️</div>
+          <h3>Asciugamani Mare</h3>
+          <p>Forniti per la spiaggia</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏖️</div>
+          <h3>Accesso Spiaggia</h3>
+          <p>Ombrellone e lettini inclusi</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📶</div>
+          <h3>Wi-Fi Fibra</h3>
+          <p>Connessione super veloce</p>
+        </div>
+      </div>
+    </section>
 
-    <div class="map-container">
-      <img class="map__img" src="assets/immagine_posizione.png" alt="Mappa posizione Martinsicuro" loading="lazy">
-      <div class="map__pin" aria-label="La nostra posizione" title="Qui siamo noi!"></div>
-    </div>
-  </section>
+    <!-- MAPPA CON PUNTO ROSSO -->
+    <section id="mappa">
+      <h2>Dove Siamo</h2>
+      <p class="subtitle">Martinsicuro (TE) - fronte mare</p>
 
-  <!-- Contact -->
-  <section id="contact">
-    <h2>Contattaci</h2>
-    <p class="subtitle">Prenota la tua vacanza</p>
-    <div style="text-align: center;">
-      <p style="font-size: 1.2rem; margin-bottom: 1rem;">
-        📧 Email: <a href="mailto:info@casamare.it" style="color: var(--primary);">info@casamare.it</a>
-      </p>
-      <p style="font-size: 1.2rem;">
-        📞 Telefono: <a href="tel:+393331234567" style="color: var(--primary);">+39 333 123 4567</a>
-      </p>
-    </div>
-  </section>
+      <div class="map-container">
+        <img class="map__img" src="assets/immagine_posizione.png" alt="Mappa posizione Martinsicuro" loading="lazy">
+        <div class="map__pin" aria-label="La nostra posizione" title="Qui siamo noi!"></div>
+      </div>
+    </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2026 Casa di Franco e Simona. Tutti i diritti riservati.</p>
-  </footer>
+    <!-- Contact -->
+    <section id="contact">
+      <h2>Contattaci</h2>
+      <p class="subtitle">Prenota la tua vacanza</p>
+      <div style="text-align: center;">
+        <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+          📧 Email: <a href="mailto:info@casamare.it" style="color: var(--primary);">info@casamare.it</a>
+        </p>
+        <p style="font-size: 1.2rem;">
+          📞 Telefono: <a href="tel:+393331234567" style="color: var(--primary);">+39 333 123 4567</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 Casa di Franco e Simona. Tutti i diritti riservati.</p>
+    </footer>
+  </div>
 
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" onclick="closeLightboxOnBackground(event)">
@@ -651,18 +683,20 @@
       if (e.key === 'Escape') closeLightbox();
     });
 
-    // EFFETTO PARALLAX HERO
+    // EFFETTO PARALLAX HERO CON FADE
+    const hero = document.getElementById('hero');
+    const heroImg = hero.querySelector('.hero__img');
+    const heroTitle = hero.querySelector('.hero__title');
+
     window.addEventListener('scroll', () => {
       const scrolled = window.scrollY;
-      const hero = document.querySelector('.hero');
-      const heroImg = document.querySelector('.hero__img');
-      const heroTitle = document.querySelector('.hero__title');
+      const windowHeight = window.innerHeight;
       
-      if (scrolled <= window.innerHeight) {
-        const opacity = Math.max(0, 1 - scrolled / (window.innerHeight * 0.8));
+      if (scrolled <= windowHeight) {
+        const opacity = Math.max(0, 1 - scrolled / (windowHeight * 0.8));
         hero.style.opacity = opacity;
-        const currentScale = 1.15 + scrolled * 0.0001;
-        heroImg.style.transform = `translate(-50%, -50%) scale(${currentScale})`;
+        const currentScale = 1.1 + scrolled * 0.0002;
+        heroImg.style.transform = `scale(${currentScale})`;
         heroTitle.style.transform = `translateY(${scrolled * 0.5}px)`;
         heroTitle.style.opacity = opacity;
       }
