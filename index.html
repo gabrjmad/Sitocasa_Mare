@@ -58,7 +58,6 @@
       width: 100%;
       height: 100%;
       height: 100vh;
-      height: 100svh;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -66,6 +65,8 @@
       margin: 0;
       padding: 0;
       z-index: 0;
+      /* Gradient di sfondo che riprende i colori del mare/cielo */
+      background: linear-gradient(180deg, #87CEEB 0%, #4A90A4 50%, #F4E4C1 100%);
     }
 
     .hero__img {
@@ -120,7 +121,6 @@
     /* SPACER per far scorrere il contenuto sopra l'hero */
     .hero-spacer {
       height: 100vh;
-      height: 100svh;
       position: relative;
       z-index: 1;
     }
@@ -384,21 +384,15 @@
     @media (max-width: 768px) {
       .hero {
         height: 100vh;
-        height: 100svh;
       }
       
       .hero-spacer {
         height: 100vh;
-        height: 100svh;
       }
       
-      /* ZOOM MAGGIORE su mobile per coprire tutto */
+      /* Foto proporzionata su mobile */
       .hero__img {
-        transform: scale(1.5);
-        min-width: 150%;
-        min-height: 150%;
-        width: auto;
-        height: auto;
+        transform: scale(1.15);
       }
       
       .hero__title { 
@@ -633,8 +627,8 @@
 
       // BAGNO
       { src: "assets/bagno1.jpeg", caption: "Bagno moderno" },
-      { src: "assets/bagno2.jpeg", caption: "Bagno sanitari" },
-      { src: "assets/bagno3.jpeg", caption: "Bagno doccia" },
+      { src: "assets/bagno2.jpeg", caption: "Bagno doccia" },
+      { src: "assets/bagno3.jpeg", caption: "Bagno sanitari" },
 
       // KIT
       { src: "assets/kit_benvenuto.jpeg", caption: "Kit di benvenuto" },
@@ -701,10 +695,7 @@
         const opacity = Math.max(0, 1 - scrolled / (windowHeight * 0.8));
         hero.style.opacity = opacity;
         
-        // Scale diverso per mobile e desktop
-        const isMobile = window.innerWidth <= 768;
-        const baseScale = isMobile ? 1.5 : 1.1;
-        const currentScale = baseScale + scrolled * 0.0002;
+        const currentScale = 1.1 + scrolled * 0.0002;
         heroImg.style.transform = `scale(${currentScale})`;
         
         heroTitle.style.transform = `translateY(${scrolled * 0.5}px)`;
