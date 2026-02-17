@@ -36,76 +36,58 @@
       font-weight: 700;
     }
 
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-      padding: 1rem 0;
-    }
-
-    nav {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-
-    /* HERO NUOVO: foto full screen */
+    /* HERO CON EFFETTO PARALLAX E FADE */
     .hero {
       height: 100vh;
       width: 100%;
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .hero__img {
-      width: 100%;
-      height: 100%;
+      position: absolute;
+      top: -10%;
+      left: -5%;
+      width: 110%;
+      height: 110%;
       object-fit: cover;
-      display: block;
+      transform: scale(1.1);
+      transition: transform 0.5s ease-out;
     }
 
-    .hero__hint {
+    .hero__overlay {
       position: absolute;
-      left: 50%;
-      bottom: 2rem;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,.6);
-      color: #fff;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-weight: 500;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.25);
+      z-index: 1;
+    }
+
+    .hero__title {
+      position: relative;
+      z-index: 2;
+      color: white;
+      font-size: 4.5rem;
       text-align: center;
-      backdrop-filter: blur(10px);
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      padding: 0 2rem;
+      animation: fadeInTitle 1.5s ease-out;
+    }
+
+    @keyframes fadeInTitle {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* Section */
@@ -154,6 +136,7 @@
       border-radius: 16px;
       background: var(--bg-secondary);
       box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      cursor: pointer;
     }
 
     .carousel__img {
@@ -162,6 +145,11 @@
       max-height: 600px;
       object-fit: cover;
       display: block;
+      transition: transform 0.3s;
+    }
+
+    .carousel__img:hover {
+      transform: scale(1.05);
     }
 
     .carousel__btn {
@@ -213,10 +201,80 @@
       font-size: 1.2rem;
     }
 
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox__content {
+      position: relative;
+      max-width: 95vw;
+      max-height: 95vh;
+    }
+
+    .lightbox__img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox__close {
+      position: absolute;
+      top: -3rem;
+      right: 0;
+      color: white;
+      font-size: 3rem;
+      cursor: pointer;
+      z-index: 10000;
+      background: none;
+      border: none;
+    }
+
+    .lightbox__nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 60px;
+      height: 60px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .lightbox__nav:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .lightbox__nav--prev {
+      left: 2rem;
+    }
+
+    .lightbox__nav--next {
+      right: 2rem;
+    }
+
     /* Services */
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 2rem;
     }
 
@@ -259,8 +317,8 @@
 
     .map__pin {
       position: absolute;
-      left: 58%; /* REGOLA QUI per Martinsicuro */
-      top: 52%;  /* REGOLA QUI per Martinsicuro */
+      left: 58%;
+      top: 52%;
       width: 20px;
       height: 20px;
       background: #ef4444;
@@ -282,25 +340,16 @@
       padding: 3rem 2rem;
     }
 
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     /* Responsive */
     @media (max-width: 768px) {
+      .hero__title { font-size: 2.5rem; }
       .carousel__img { height: 60vh; }
       .map__img { height: 50vh; }
       .carousel { flex-direction: column; gap: 2rem; }
-      nav { padding: 0 1rem; }
-      .nav-links { gap: 1rem; font-size: 0.9rem; }
+      .services-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+      .lightbox__nav { width: 50px; height: 50px; }
+      .lightbox__nav--prev { left: 1rem; }
+      .lightbox__nav--next { right: 1rem; }
     }
 
     /* Back to top */
@@ -321,6 +370,7 @@
       opacity: 0;
       transition: opacity 0.3s;
       z-index: 999;
+      border: none;
     }
 
     .back-to-top.visible {
@@ -329,28 +379,12 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <nav>
-      <div class="logo">🏖️ Casa Mare</div>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#descrizione">Descrizione</a></li>
-        <li><a href="#gallery">Foto</a></li>
-        <li><a href="#services">Servizi</a></li>
-        <li><a href="#mappa">Dove Siamo</a></li>
-        <li><a href="#contact">Contatti</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <!-- HERO: PRIMA FOTO FULL SCREEN -->
+  <!-- HERO: FOTO FULL SCREEN CON TITOLO CENTRALE -->
   <section class="hero" id="home">
-    <img class="hero__img" src="assets/1foto_sfondo.jpeg" alt="Foto principale appartamento fronte mare" loading="eager">
-    <div class="hero__hint">
-      Scopri la casa<br>
-      <small>scorri ↓</small>
-    </div>
+    <img class="hero__img" src="assets/1foto_sfondo.jpeg" alt="Casa di Franco e Simona" loading="eager">
+    <div class="hero__overlay"></div>
+    <h1 class="hero__title">La Casa di Franco e Simona</h1>
   </section>
 
   <!-- DESCRIZIONE BREVE -->
@@ -369,7 +403,7 @@
     <div class="carousel">
       <button class="carousel__btn" type="button" data-dir="-1" aria-label="Foto precedente">‹</button>
 
-      <div class="carousel__viewport">
+      <div class="carousel__viewport" onclick="openLightbox()">
         <img id="carouselImage" class="carousel__img" src="assets/foto_sala.jpg" alt="Sala" loading="lazy">
       </div>
 
@@ -404,6 +438,26 @@
         <div class="service-icon">🚲</div>
         <h3>Biciclette</h3>
         <p>Disponibili gratuitamente</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🚗</div>
+        <h3>Garage</h3>
+        <p>Posto auto coperto</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">☕</div>
+        <h3>Macchina Caffè</h3>
+        <p>Espresso e cappuccino</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🍽️</div>
+        <h3>Microonde</h3>
+        <p>Cucina completamente attrezzata</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏖️</div>
+        <h3>Asciugamani Mare</h3>
+        <p>Forniti per la spiaggia</p>
       </div>
       <div class="service-card">
         <div class="service-icon">🏖️</div>
@@ -448,8 +502,18 @@
     <p>&copy; 2026 Casa di Franco e Simona. Tutti i diritti riservati.</p>
   </footer>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightboxOnBackground(event)">
+    <div class="lightbox__content">
+      <button class="lightbox__close" onclick="closeLightbox()">×</button>
+      <button class="lightbox__nav lightbox__nav--prev" onclick="lightboxNavigate(-1); event.stopPropagation();">‹</button>
+      <img id="lightboxImage" class="lightbox__img" src="" alt="">
+      <button class="lightbox__nav lightbox__nav--next" onclick="lightboxNavigate(1); event.stopPropagation();">›</button>
+    </div>
+  </div>
+
   <!-- Back to Top -->
-  <div class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</div>
+  <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
   <script>
     // CAROUSEL - foto ordinate: SALA → CUCINA → TERRAZZO → BAGNO → KIT
@@ -521,6 +585,59 @@
     // Init carousel
     updateCarousel();
 
+    // LIGHTBOX
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImage');
+
+    function openLightbox() {
+      lightbox.classList.add('active');
+      lightboxImg.src = slides[currentSlide].src;
+      lightboxImg.alt = slides[currentSlide].caption;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function closeLightboxOnBackground(event) {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    }
+
+    function lightboxNavigate(dir) {
+      currentSlide = (currentSlide + dir + slides.length) % slides.length;
+      lightboxImg.src = slides[currentSlide].src;
+      lightboxImg.alt = slides[currentSlide].caption;
+      updateCarousel();
+    }
+
+    // Tasti freccia lightbox
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'ArrowLeft') lightboxNavigate(-1);
+      if (e.key === 'ArrowRight') lightboxNavigate(1);
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // EFFETTO PARALLAX HERO
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const hero = document.querySelector('.hero');
+      const heroImg = document.querySelector('.hero__img');
+      const heroTitle = document.querySelector('.hero__title');
+      const heroOverlay = document.querySelector('.hero__overlay');
+      
+      if (scrolled <= window.innerHeight) {
+        const opacity = Math.max(0, 1 - scrolled / (window.innerHeight * 0.8));
+        hero.style.opacity = opacity;
+        heroImg.style.transform = `scale(${1.1 + scrolled * 0.0001})`;
+        heroTitle.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    });
+
     // Back to top
     window.addEventListener('scroll', () => {
       const backToTop = document.getElementById('backToTop');
@@ -530,16 +647,6 @@
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    // Smooth scroll nav
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
-    });
 
     // Touch swipe carousel (mobile)
     let startX = 0;
