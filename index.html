@@ -65,8 +65,34 @@
       margin: 0;
       padding: 0;
       z-index: 0;
-      /* Gradient di sfondo che riprende i colori del mare/cielo */
-      background: linear-gradient(180deg, #87CEEB 0%, #4A90A4 50%, #F4E4C1 100%);
+      background: #ffffff;
+    }
+
+    /* PSEUDO-ELEMENTI per estensione foto blur sopra e sotto (solo mobile) */
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 15vh;
+      background-image: url('assets/1foto_sfondo.jpeg');
+      background-size: cover;
+      background-position: center;
+      filter: blur(20px);
+      opacity: 0.7;
+      z-index: 0;
+      display: none;
+    }
+
+    .hero::before {
+      top: 0;
+      background-position: center top;
+    }
+
+    .hero::after {
+      bottom: 0;
+      background-position: center bottom;
     }
 
     .hero__img {
@@ -81,6 +107,7 @@
       object-position: center;
       transform: scale(1.1);
       transition: transform 0.5s ease-out;
+      z-index: 1;
     }
 
     .hero__overlay {
@@ -90,12 +117,26 @@
       width: 100%;
       height: 100%;
       background: linear-gradient(135deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.25) 100%);
-      z-index: 1;
+      z-index: 2;
+    }
+
+    /* Layer bianco che compare durante lo scroll */
+    .hero__white-fade {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      opacity: 0;
+      z-index: 3;
+      pointer-events: none;
+      transition: opacity 0.3s ease-out;
     }
 
     .hero__title {
       position: relative;
-      z-index: 2;
+      z-index: 4;
       font-family: 'Cormorant Garamond', serif;
       font-size: 3.5rem;
       font-weight: 300;
@@ -390,6 +431,12 @@
         height: 100vh;
       }
       
+      /* Attiva pseudo-elementi blur solo su mobile */
+      .hero::before,
+      .hero::after {
+        display: block;
+      }
+      
       /* Foto proporzionata su mobile */
       .hero__img {
         transform: scale(1.15);
@@ -470,6 +517,7 @@
   <div class="hero" id="hero">
     <img class="hero__img" src="assets/1foto_sfondo.jpeg" alt="Casa di Franco e Simona" loading="eager">
     <div class="hero__overlay"></div>
+    <div class="hero__white-fade" id="whiteFade"></div>
     <h1 class="hero__title">La Casa di Franco e Simona</h1>
   </div>
 
@@ -682,22 +730,30 @@
       if (e.key === 'Escape') closeLightbox();
     });
 
-    // EFFETTO PARALLAX HERO CON FADE
+    // EFFETTO PARALLAX HERO CON FADE-TO-WHITE
     const hero = document.getElementById('hero');
     const heroImg = hero.querySelector('.hero__img');
     const heroTitle = hero.querySelector('.hero__title');
+    const whiteFade = document.getElementById('whiteFade');
 
     window.addEventListener('scroll', () => {
       const scrolled = window.scrollY;
       const windowHeight = window.innerHeight;
       
       if (scrolled <= windowHeight) {
+        // Fade generale hero
         const opacity = Math.max(0, 1 - scrolled / (windowHeight * 0.8));
         hero.style.opacity = opacity;
         
+        // Fade-to-white progressivo (aumenta l'opacità del layer bianco)
+        const whiteOpacity = Math.min(1, scrolled / (windowHeight * 0.6));
+        whiteFade.style.opacity = whiteOpacity;
+        
+        // Scale con parallax
         const currentScale = 1.1 + scrolled * 0.0002;
         heroImg.style.transform = `scale(${currentScale})`;
         
+        // Titolo che sale e si dissolve
         heroTitle.style.transform = `translateY(${scrolled * 0.5}px)`;
         heroTitle.style.opacity = opacity;
       }
