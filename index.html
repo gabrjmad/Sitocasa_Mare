@@ -6,12 +6,19 @@
   <title>Casa di Franco e Simona - Appartamento Fronte Mare</title>
   <meta name="description" content="Elegante appartamento fronte mare. Perfetto per vacanze rilassanti con accesso diretto alla spiaggia.">
   <link rel="icon" type="image/png" href="https://api.dicebear.com/7.x/shapes/svg?seed=beach">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
     }
 
     :root {
@@ -28,7 +35,6 @@
       font-family: 'Poppins', sans-serif;
       color: var(--text);
       line-height: 1.6;
-      overflow-x: hidden;
     }
 
     h1, h2, h3 {
@@ -36,10 +42,10 @@
       font-weight: 700;
     }
 
-    /* HERO CON EFFETTO PARALLAX E FADE - FULL SCREEN */
+    /* HERO CON EFFETTO PARALLAX E FADE - FULL SCREEN TOTALE */
     .hero {
       height: 100vh;
-      width: 100vw;
+      width: 100%;
       position: relative;
       overflow: hidden;
       display: flex;
@@ -56,6 +62,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       transform: scale(1.15);
       transition: transform 0.5s ease-out;
     }
@@ -73,26 +80,15 @@
     .hero__title {
       position: relative;
       z-index: 2;
-      font-size: 3rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
       text-align: center;
       padding: 2rem 3rem;
-      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
-      font-weight: 600;
-      letter-spacing: 1px;
+      color: #ffffff;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4);
+      letter-spacing: 3px;
       animation: fadeInTitle 1.5s ease-out;
-      text-shadow: none;
-    }
-
-    /* Fallback per browser che non supportano background-clip */
-    @supports not (-webkit-background-clip: text) {
-      .hero__title {
-        color: #06b6d4;
-        text-shadow: 0 3px 12px rgba(0,0,0,0.5);
-      }
     }
 
     @keyframes fadeInTitle {
@@ -358,7 +354,7 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-      .hero__title { font-size: 2rem; padding: 1.5rem 2rem; }
+      .hero__title { font-size: 2.2rem; padding: 1.5rem 2rem; letter-spacing: 2px; }
       .carousel__img { height: 60vh; }
       .map__img { height: 50vh; }
       .carousel { flex-direction: column; gap: 2rem; }
@@ -457,8 +453,8 @@
       </div>
       <div class="service-card">
         <div class="service-icon">🚗</div>
-        <h3>Posto Auto</h3>
-        <p>Con piccolo garage</p>
+        <h3>Piccolo Garage</h3>
+        <p>Posto auto coperto</p>
       </div>
       <div class="service-card">
         <div class="service-icon">☕</div>
